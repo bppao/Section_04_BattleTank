@@ -33,4 +33,6 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 
 		// Return an OUT parameter, true if hit landscape
 		bool GetSightRayHitLocation(FVector &hitLocation) const;
+
+		bool GetLookDirection(FVector2D screenLocation, FVector &lookDirection) const;
 };
