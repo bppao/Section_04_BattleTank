@@ -23,7 +23,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		// Called every frame
 		virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-		void AimAt(FVector hitLocation);
+		void AimAt(FVector hitLocation, float launchSpeed);
 
 	private:
 		UStaticMeshComponent* m_Barrel = nullptr;

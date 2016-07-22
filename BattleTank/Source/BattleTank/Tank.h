@@ -31,5 +31,8 @@ class BATTLETANK_API ATank : public APawn
 		virtual void Tick( float DeltaSeconds ) override;
 
 		// Called to bind functionality to input
-		virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;	
+		virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+
+		UPROPERTY(EditAnywhere, Category = Firing)
+		float m_LaunchSpeed = 100000.0f; // TODO Find sensible default value
 };
