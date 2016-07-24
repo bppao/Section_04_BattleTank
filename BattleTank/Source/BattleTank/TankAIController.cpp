@@ -1,6 +1,7 @@
 // Ben Paolillo - Copyright 2016
 
 #include "BattleTank.h"
+#include "Tank.h"
 #include "TankAIController.h"
 
 void ATankAIController::BeginPlay()
