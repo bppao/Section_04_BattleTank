@@ -59,9 +59,9 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
 	// Calculate difference between current barrel rotation and aimDirection
-	auto barrelRotator = m_Barrel->GetForwardVector().Rotation();
-	auto aimRotator = aimDirection.Rotation();
-	auto deltaRotator = aimRotator - barrelRotator;
+	FRotator barrelRotator = m_Barrel->GetForwardVector().Rotation();
+	FRotator aimRotator = aimDirection.Rotation();
+	FRotator deltaRotator = aimRotator - barrelRotator;
 
-	m_Barrel->Elevate(5);
+	m_Barrel->Elevate(deltaRotator.Pitch);
 }
