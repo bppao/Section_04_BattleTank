@@ -27,6 +27,7 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 
 	FVector launchVelocity; // OUT parameter
 	FVector startLocation = m_Barrel->GetSocketLocation(FName("Projectile"));
+	TArray<AActor*> actorsToIgnore;
 
 	// Calculate the launchVelocity
 	bool haveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
@@ -38,7 +39,10 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 		false,
 		0.0f,
 		0.0f,
-		ESuggestProjVelocityTraceOption::DoNotTrace);
+		ESuggestProjVelocityTraceOption::DoNotTrace,
+		FCollisionResponseParams::DefaultResponseParam,
+		actorsToIgnore,
+		false);
 
 	if (haveAimSolution)
 	{

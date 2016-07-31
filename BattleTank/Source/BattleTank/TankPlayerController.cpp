@@ -53,19 +53,20 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &hitLocation) const
 	int32 viewportSizeX, viewportSizeY; // These are OUT parameters
 	GetViewportSize(viewportSizeX, viewportSizeY);
 
-	FVector2D screenLocation =
-		FVector2D(viewportSizeX * m_CrosshairXLocation,
-				  viewportSizeY * m_CrosshairYLocation);
-	FVector lookDirection;
+	FVector2D screenLocation = FVector2D(
+		viewportSizeX * m_CrosshairXLocation,
+		viewportSizeY * m_CrosshairYLocation);
 
 	// De-project the screen position of the crosshair to a world direction
+	FVector lookDirection;
 	if (GetLookDirection(screenLocation, lookDirection))
 	{
 		// Line-trace along that look direction and see what we hit (up to max range)
-		GetLookVectorHitLocation(lookDirection, hitLocation);
+		return GetLookVectorHitLocation(lookDirection, hitLocation);
 	}
 
-	return true;
+	// Did not get a valid hit location
+	return false;
 }
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector lookDirection, FVector &hitLocation) const
