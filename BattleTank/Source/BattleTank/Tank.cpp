@@ -19,6 +19,11 @@ void ATank::SetBarrelReference(UTankBarrel* barrelToSet)
 	TankAimingComponent->SetBarrelReference(barrelToSet);
 }
 
+void ATank::SetTurretReference(UTankTurret* turretToSet)
+{
+	TankAimingComponent->SetTurretReference(turretToSet);
+}
+
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
