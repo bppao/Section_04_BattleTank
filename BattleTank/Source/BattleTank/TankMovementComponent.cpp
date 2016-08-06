@@ -26,3 +26,11 @@ void UTankMovementComponent::IntendTurnRight(float input)
 	m_RightTrack->SetThrottle(-input);
 }
 
+void UTankMovementComponent::RequestDirectMove(const FVector& moveVelocity, bool forceMaxSpeed)
+{
+	// Replacing the functionality of the base class, so don't call Super
+
+	auto name = GetOwner()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s moving to: %s"), *name, *moveVelocity.ToString())
+}
+

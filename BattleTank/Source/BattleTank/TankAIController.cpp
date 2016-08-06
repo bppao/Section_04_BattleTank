@@ -16,13 +16,8 @@ void ATankAIController::Tick(float deltaSeconds)
 	ATank* playerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	ATank* AIControlledTank = Cast<ATank>(GetPawn());
 
-	if (!playerTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Failed to find player tank"));
-		return;
-	}
-
-	// TODO Move towards the player
+	// Move towards the player
+	MoveToActor(playerTank, m_AcceptanceRadius); // TODO Check radius is in cm
 
 	// Aim towards the player
 	AIControlledTank->AimAt(playerTank->GetActorLocation());
