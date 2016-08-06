@@ -30,7 +30,14 @@ void UTankMovementComponent::RequestDirectMove(const FVector& moveVelocity, bool
 {
 	// Replacing the functionality of the base class, so don't call Super
 
-	auto name = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s moving to: %s"), *name, *moveVelocity.ToString())
+	// Only care about the direction that the AI tank wants to move in,
+	// so normalize the velocity vector
+	FVector AIMoveDirection = moveVelocity.GetSafeNormal();
+	FVector tankForwardDirection = GetOwner()->GetActorForwardVector().GetSafeNormal();
+
+	// Calculate the dot product between the two vectors to drive the AI tank
+	// in the correct direction
+	float AIDriveInput = FVector::DotProduct(AIMoveDirection, tankForwardDirection);
+	IntendMoveForward(AIDriveInput);
 }
 
