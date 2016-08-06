@@ -52,5 +52,5 @@ class BATTLETANK_API ATank : public APawn
 
 		float m_ReloadTimeInSeconds = 3.0f;
 
-		double m_LastFireTime = 0;
+		float m_LastFireTime = 0.0f;
 };

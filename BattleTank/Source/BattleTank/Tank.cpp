@@ -46,7 +46,7 @@ void ATank::AimAt(FVector hitLocation)
 
 void ATank::Fire()
 {
-	bool isReloaded = (FPlatformTime::Seconds() - m_LastFireTime) > m_ReloadTimeInSeconds;
+	bool isReloaded = (GetWorld()->GetTimeSeconds() - m_LastFireTime) > m_ReloadTimeInSeconds;
 
 	// Pointer protection
 	if (!m_Barrel) return;
@@ -61,6 +61,6 @@ void ATank::Fire()
 		m_Barrel->GetSocketRotation(FName("Projectile")));
 
 	projectile->LaunchProjectile(m_LaunchSpeed);
-	m_LastFireTime = FPlatformTime::Seconds();
+	m_LastFireTime = GetWorld()->GetTimeSeconds();
 }
 
