@@ -49,4 +49,8 @@ class BATTLETANK_API ATank : public APawn
 
 		// Local barrel reference for spawning projectiles
 		UTankBarrel* m_Barrel = nullptr;
+
+		float m_ReloadTimeInSeconds = 3.0f;
+
+		double m_LastFireTime = 0;
 };
