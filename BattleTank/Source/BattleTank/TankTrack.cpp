@@ -5,9 +5,6 @@
 
 void UTankTrack::SetThrottle(float throttle)
 {
-	auto name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s throttle: %f!"), *name, throttle);
-
 	// TODO Clamp throttle value so the user can't increase the scale and make the tank move faster
 	FVector forceApplied = GetForwardVector() * throttle * TrackMaxDrivingForce;
 	FVector forceLocation = GetComponentLocation();
