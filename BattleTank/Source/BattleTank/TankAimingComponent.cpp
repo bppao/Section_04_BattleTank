@@ -55,14 +55,6 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 		// Convert the velocity vector into a unit vector
 		auto aimDirection = launchVelocity.GetSafeNormal();
 		MoveBarrelTowards(aimDirection);
-
-		auto time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found"), time);
-	}
-	else
-	{
-		auto time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solution found"), time);
 	}
 }
 
