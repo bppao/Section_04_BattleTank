@@ -5,7 +5,6 @@
 
 void UTankTrack::SetThrottle(float throttle)
 {
-	// TODO Clamp throttle value so the user can't increase the scale and make the tank move faster
 	FVector forceApplied = GetForwardVector() * throttle * TrackMaxDrivingForce;
 	FVector forceLocation = GetComponentLocation();
 

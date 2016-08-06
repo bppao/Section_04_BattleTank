@@ -22,6 +22,9 @@ class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
 		UFUNCTION(BlueprintCallable, Category = Input)
 		void IntendMoveForward(float input);
 
+		UFUNCTION(BlueprintCallable, Category = Input)
+		void IntendTurnRight(float input);
+
 	private:
 		UTankTrack* m_LeftTrack = nullptr;
 		UTankTrack* m_RightTrack = nullptr;

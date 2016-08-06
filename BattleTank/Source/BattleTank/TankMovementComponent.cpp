@@ -14,9 +14,13 @@ void UTankMovementComponent::Initialize(UTankTrack* leftTrackToSet, UTankTrack* 
 
 void UTankMovementComponent::IntendMoveForward(float input)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Intend move forward input: %f"), input);
-
 	m_LeftTrack->SetThrottle(input);
 	m_RightTrack->SetThrottle(input);
+}
+
+void UTankMovementComponent::IntendTurnRight(float input)
+{
+	m_LeftTrack->SetThrottle(input);
+	m_RightTrack->SetThrottle(-input);
 }
 
