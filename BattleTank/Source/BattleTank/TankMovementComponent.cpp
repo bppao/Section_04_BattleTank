@@ -36,8 +36,13 @@ void UTankMovementComponent::RequestDirectMove(const FVector& moveVelocity, bool
 	FVector tankForwardDirection = GetOwner()->GetActorForwardVector().GetSafeNormal();
 
 	// Calculate the dot product between the two vectors to drive the AI tank
-	// in the correct direction
-	float AIDriveInput = FVector::DotProduct(AIMoveDirection, tankForwardDirection);
-	IntendMoveForward(AIDriveInput);
+	// in the correct forward/backward direction
+	float AIDriveInputForwardBackward = FVector::DotProduct(AIMoveDirection, tankForwardDirection);
+	IntendMoveForward(AIDriveInputForwardBackward);
+
+	// Calculate the cross product between the two vectors to drive the AI tank
+	// in the correct right/left direction
+	FVector AIDriveInputRightLeft = FVector::CrossProduct(tankForwardDirection, AIMoveDirection);
+	IntendTurnRight(AIDriveInputRightLeft.Z);
 }
 
