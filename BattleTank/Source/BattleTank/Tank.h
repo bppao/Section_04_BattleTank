@@ -30,6 +30,7 @@ class BATTLETANK_API ATank : public APawn
 		void Fire();
 
 	protected:
+		UPROPERTY(BlueprintReadOnly)
 		UTankAimingComponent* TankAimingComponent = nullptr;
 
 		UPROPERTY(BlueprintReadOnly)
