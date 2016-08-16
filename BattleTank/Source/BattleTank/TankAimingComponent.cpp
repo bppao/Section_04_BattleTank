@@ -38,6 +38,11 @@ void UTankAimingComponent::TickComponent(float deltaTime, enum ELevelTick TickTy
 	}
 }
 
+EFiringState UTankAimingComponent::GetFiringState() const
+{
+	return m_FiringState;
+}
+
 void UTankAimingComponent::AimAt(FVector hitLocation)
 {
 	if (!ensure(m_Barrel)) return;

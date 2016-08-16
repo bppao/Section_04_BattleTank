@@ -26,5 +26,9 @@ void ATankAIController::Tick(float deltaSeconds)
 	if (!ensure(AIAimingComponent)) return;
 	AIAimingComponent->AimAt(playerTank->GetActorLocation());
 
-	AIAimingComponent->Fire(); // TODO Only fire when locked onto the player
+	// Only allow the AI tanks to fire if they're locked on the player
+	if (AIAimingComponent->GetFiringState() == EFiringState::LOCKED)
+	{
+		AIAimingComponent->Fire(); // TODO Limit firing rate
+	}
 }
