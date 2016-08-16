@@ -26,5 +26,5 @@ void ATankAIController::Tick(float deltaSeconds)
 	if (!ensure(AIAimingComponent)) return;
 	AIAimingComponent->AimAt(playerTank->GetActorLocation());
 
-	AIAimingComponent->Fire();
+	AIAimingComponent->Fire(); // TODO Only fire when locked onto the player
 }

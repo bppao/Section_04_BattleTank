@@ -97,7 +97,18 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 	FRotator deltaRotator = aimRotator - barrelRotator;
 
 	m_Barrel->Elevate(deltaRotator.Pitch);
-	m_Turret->Rotate(deltaRotator.Yaw);
+
+	// If we need to rotate more than 180 degrees, then go the other way.
+	// This will ensure that the turret always takes the shortest route
+	// to line up the barrel with the mouse cursor.
+	if (FMath::Abs(deltaRotator.Yaw) > 180.0f)
+	{
+		m_Turret->Rotate(-deltaRotator.Yaw);
+	}
+	else
+	{
+		m_Turret->Rotate(deltaRotator.Yaw);
+	}
 }
 
 bool UTankAimingComponent::IsBarrelMoving()
