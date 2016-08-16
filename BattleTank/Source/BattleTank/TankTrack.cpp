@@ -34,8 +34,19 @@ void UTankTrack::OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, UP
 	DriveTrack();
 	ApplySidewaysForce();
 
+	UStaticMeshComponent* tankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
+
+	// Set no linear or angular damping if we are trying to drive the tank
+	if (m_CurrentThrottle > 0.0f)
+	{
+		tankRoot->SetLinearDamping(0.0f);
+		tankRoot->SetAngularDamping(0.0f);
+	}
+
 	// Reset the current throttle so the tank doesn't keep driving forward on its own
 	m_CurrentThrottle = 0.0f;
+	tankRoot->SetLinearDamping(0.5f);
+	tankRoot->SetAngularDamping(0.8f);
 }
 
 void UTankTrack::SetThrottle(float throttle)
