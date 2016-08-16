@@ -16,19 +16,26 @@ UTankAimingComponent::UTankAimingComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UTankAimingComponent::TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction)
-{
-	if ((GetWorld()->GetTimeSeconds() - m_LastFireTime) > m_ReloadTimeInSeconds)
-	{
-		m_FiringState = EFiringState::RELOADING;
-	}
-	// TODO Fix this logic - intentionally stuck in reloading state
-}
-
 void UTankAimingComponent::Initialize(UTankBarrel* barrelToSet, UTankTurret* turretToSet)
 {
 	m_Barrel = barrelToSet;
 	m_Turret = turretToSet;
+}
+
+void UTankAimingComponent::TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction)
+{
+	if ((GetWorld()->GetTimeSeconds() - m_LastFireTime) < m_ReloadTimeInSeconds)
+	{
+		m_FiringState = EFiringState::RELOADING;
+	}
+	else if (IsBarrelMoving())
+	{
+		m_FiringState = EFiringState::AIMING;
+	}
+	else
+	{
+		m_FiringState = EFiringState::LOCKED;
+	}
 }
 
 void UTankAimingComponent::AimAt(FVector hitLocation)
@@ -57,8 +64,8 @@ void UTankAimingComponent::AimAt(FVector hitLocation)
 	if (haveAimSolution)
 	{
 		// Convert the velocity vector into a unit vector
-		auto aimDirection = launchVelocity.GetSafeNormal();
-		MoveBarrelTowards(aimDirection);
+		m_AimDirection = launchVelocity.GetSafeNormal();
+		MoveBarrelTowards(m_AimDirection);
 	}
 }
 
@@ -91,4 +98,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 
 	m_Barrel->Elevate(deltaRotator.Pitch);
 	m_Turret->Rotate(deltaRotator.Yaw);
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(m_Barrel)) return false;
+
+	return !m_Barrel->GetForwardVector().Equals(m_AimDirection, 0.025f);
 }
