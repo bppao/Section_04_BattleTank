@@ -1,6 +1,6 @@
 *.VC.db
 *.VC.opendb
-*/StarterContent
+.vs/
 
 # Compiled Object files
 *.slo
