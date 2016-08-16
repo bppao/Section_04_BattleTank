@@ -3,6 +3,7 @@
 #include "BattleTank.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 
 
@@ -52,6 +53,26 @@ void UTankAimingComponent::AimAt(FVector hitLocation)
 		auto aimDirection = launchVelocity.GetSafeNormal();
 		MoveBarrelTowards(aimDirection);
 	}
+}
+
+void UTankAimingComponent::Fire()
+{
+	bool isReloaded = (GetWorld()->GetTimeSeconds() - m_LastFireTime) > m_ReloadTimeInSeconds;
+
+	// Pointer protection
+	if (!ensure(m_Barrel && m_ProjectileBlueprint)) return;
+
+	// Return out if we're not reloaded (i.e., limiting fire rate)
+	if (!isReloaded) return;
+
+	// Spawn a projectile at the socket location on the barrel
+	AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(
+		m_ProjectileBlueprint,
+		m_Barrel->GetSocketLocation(FName("Projectile")),
+		m_Barrel->GetSocketRotation(FName("Projectile")));
+
+	projectile->LaunchProjectile(m_LaunchSpeed);
+	m_LastFireTime = GetWorld()->GetTimeSeconds();
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
