@@ -8,6 +8,12 @@ UTankTrack::UTankTrack()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+void UTankTrack::BeginPlay()
+{
+	// Subscribe to this hit event
+	OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
+}
+
 void UTankTrack::TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction)
 {
 	// Calculate the slippage speed (sideways-component of the vector)
@@ -20,6 +26,11 @@ void UTankTrack::TickComponent(float deltaTime, enum ELevelTick TickType, FActor
 	UStaticMeshComponent* tankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 	FVector correctionForce = (tankRoot->GetMass() * correctionAcceleration) / 2; // Two tracks
 	tankRoot->AddForce(correctionForce);
+}
+
+void UTankTrack::OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, UPrimitiveComponent* otherComp, FVector normalImpulse, const FHitResult& hit)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Track is on the ground!"))
 }
 
 void UTankTrack::SetThrottle(float throttle)

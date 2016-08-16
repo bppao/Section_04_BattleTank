@@ -25,5 +25,10 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 		float TrackMaxDrivingForce = 400000.0f; // Assume 40,000 kg tank and 1g acceleration
 
 	private:
+		virtual void BeginPlay() override;
+
 		virtual void TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction) override;
+
+		UFUNCTION()
+		void OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, UPrimitiveComponent* otherComp, FVector normalImpulse, const FHitResult& hit);
 };
