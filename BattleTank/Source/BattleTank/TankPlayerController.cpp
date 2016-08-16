@@ -1,7 +1,6 @@
 // Ben Paolillo - Copyright 2016
 
 #include "BattleTank.h"
-#include "Tank.h"
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
 
@@ -9,7 +8,7 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UTankAimingComponent* aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	UTankAimingComponent* aimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(aimingComponent)) return;
 
 	FoundAimingComponent(aimingComponent);
@@ -22,21 +21,15 @@ void ATankPlayerController::Tick(float deltaSeconds)
 	AimTowardsCrosshair();
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	// Doesn't make sense to aim towards the crosshair
-	// if the player is not controlling a tank
-	if (!ensure(GetControlledTank())) return;
+	UTankAimingComponent* aimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(aimingComponent)) return;
 
 	FVector hitLocation; // OUT parameter
 	if (GetSightRayHitLocation(hitLocation))
 	{
-		GetControlledTank()->AimAt(hitLocation);
+		aimingComponent->AimAt(hitLocation);
 	}
 }
 

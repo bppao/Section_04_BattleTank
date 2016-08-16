@@ -5,8 +5,7 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h" // NOTE: Must be last include
 
-class ATank; // Forward declaration
-class UTankAimingComponent;
+class UTankAimingComponent; // Forward declaration
 
 /**
  * Player controller for the tank.
@@ -17,9 +16,6 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 	protected:
-		UFUNCTION(BlueprintCallable, Category = "Setup")
-		ATank* GetControlledTank() const;
-
 		// NOTE: Because of this special Unreal macro, we don't even
 		// need to implement this function!
 		UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
