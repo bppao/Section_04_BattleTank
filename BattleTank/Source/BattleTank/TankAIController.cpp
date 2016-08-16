@@ -16,6 +16,8 @@ void ATankAIController::Tick(float deltaSeconds)
 	ATank* playerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	ATank* AIControlledTank = Cast<ATank>(GetPawn());
 
+	if (!ensure(playerTank && AIControlledTank)) return;
+
 	// Move towards the player
 	MoveToActor(playerTank, m_AcceptanceRadius); // TODO Check radius is in cm
 
