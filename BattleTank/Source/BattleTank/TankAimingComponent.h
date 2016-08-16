@@ -11,7 +11,8 @@ enum class EFiringState : uint8
 {
 	RELOADING,
 	AIMING,
-	LOCKED
+	LOCKED,
+	OUT_OF_AMMO
 };
 
 // Forward declaration
@@ -39,6 +40,9 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 
 		EFiringState GetFiringState() const;
 
+		UFUNCTION(BlueprintCallable, Category = "Firing")
+		int GetRoundsLeft() const;
+
 	protected:
 		UPROPERTY(BlueprintReadOnly, Category = "State")
 		EFiringState m_FiringState = EFiringState::RELOADING;
@@ -59,6 +63,9 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		float m_LastFireTime = 0.0f;
 
 		FVector m_AimDirection;
+
+		// Ammo to start with
+		int m_RoundsLeft = 3;
 
 		virtual void TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction) override;
 
