@@ -5,7 +5,7 @@
 
 UTankTrack::UTankTrack()
 {
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
 void UTankTrack::BeginPlay()
@@ -14,12 +14,13 @@ void UTankTrack::BeginPlay()
 	OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
 }
 
-void UTankTrack::TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction)
+void UTankTrack::ApplySidewaysForce()
 {
 	// Calculate the slippage speed (sideways-component of the vector)
 	float slippageSpeed = FVector::DotProduct(GetComponentVelocity(), GetRightVector());
 
 	// Calculate the required acceleration this frame to correct
+	float deltaTime = GetWorld()->GetDeltaSeconds();
 	FVector correctionAcceleration = (-slippageSpeed / deltaTime) * GetRightVector();
 
 	// Calculate and apply sideways force (F = m * a)
@@ -30,12 +31,21 @@ void UTankTrack::TickComponent(float deltaTime, enum ELevelTick TickType, FActor
 
 void UTankTrack::OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, UPrimitiveComponent* otherComp, FVector normalImpulse, const FHitResult& hit)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Track is on the ground!"))
+	DriveTrack();
+	ApplySidewaysForce();
+
+	// Reset the current throttle so the tank doesn't keep driving forward on its own
+	m_CurrentThrottle = 0.0f;
 }
 
 void UTankTrack::SetThrottle(float throttle)
 {
-	FVector forceApplied = GetForwardVector() * throttle * TrackMaxDrivingForce;
+	m_CurrentThrottle = FMath::Clamp(m_CurrentThrottle + throttle, -1.0f, 1.0f);
+}
+
+void UTankTrack::DriveTrack()
+{
+	FVector forceApplied = GetForwardVector() * m_CurrentThrottle * TrackMaxDrivingForce;
 	FVector forceLocation = GetComponentLocation();
 
 	// Get the root tank component and add force at the location of the track
