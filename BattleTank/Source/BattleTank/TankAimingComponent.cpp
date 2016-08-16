@@ -14,8 +14,15 @@ UTankAimingComponent::UTankAimingComponent()
 	// off to improve performance if you don't need them.
 	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;
+}
 
-	// ...
+void UTankAimingComponent::TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction)
+{
+	if ((GetWorld()->GetTimeSeconds() - m_LastFireTime) > m_ReloadTimeInSeconds)
+	{
+		m_FiringState = EFiringState::RELOADING;
+	}
+	// TODO Fix this logic - intentionally stuck in reloading state
 }
 
 void UTankAimingComponent::Initialize(UTankBarrel* barrelToSet, UTankTurret* turretToSet)
@@ -57,13 +64,11 @@ void UTankAimingComponent::AimAt(FVector hitLocation)
 
 void UTankAimingComponent::Fire()
 {
-	bool isReloaded = (GetWorld()->GetTimeSeconds() - m_LastFireTime) > m_ReloadTimeInSeconds;
-
 	// Pointer protection
 	if (!ensure(m_Barrel && m_ProjectileBlueprint)) return;
 
 	// Return out if we're not reloaded (i.e., limiting fire rate)
-	if (!isReloaded) return;
+	if (m_FiringState == EFiringState::RELOADING) return;
 
 	// Spawn a projectile at the socket location on the barrel
 	AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(

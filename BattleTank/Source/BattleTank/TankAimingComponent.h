@@ -56,5 +56,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 
 		float m_LastFireTime = 0.0f;
 
+		virtual void TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction) override;
+
 		void MoveBarrelTowards(FVector aimDirection);
 };
