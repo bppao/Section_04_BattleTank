@@ -16,9 +16,6 @@ class BATTLETANK_API AProjectile : public AActor
 
 		// Called when the game starts or when spawned
 		virtual void BeginPlay() override;
-	
-		// Called every frame
-		virtual void Tick( float DeltaSeconds ) override;
 
 		void LaunchProjectile(float speed);
 
@@ -30,5 +27,10 @@ class BATTLETANK_API AProjectile : public AActor
 
 		UPROPERTY(VisibleAnywhere, Category = "Components")
 		UParticleSystemComponent* m_LaunchBlast = nullptr;
-	
+
+		UPROPERTY(VisibleAnywhere, Category = "Components")
+		UParticleSystemComponent* m_ImpactBlast = nullptr;
+
+		UFUNCTION()
+		void OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, UPrimitiveComponent* otherComp, FVector normalImpulse, const FHitResult& hit);
 };
