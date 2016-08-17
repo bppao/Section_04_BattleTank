@@ -22,4 +22,9 @@ class BATTLETANK_API ATankAIController : public AAIController
 		virtual void BeginPlay() override;
 
 		virtual void Tick(float deltaSeconds) override;
+
+		virtual void SetPawn(APawn* inPawn) override;
+
+		UFUNCTION()
+		void OnTankDeath();
 };

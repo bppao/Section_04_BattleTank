@@ -35,6 +35,8 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 
 		virtual void Tick(float deltaSeconds) override;
 
+		virtual void SetPawn(APawn* inPawn) override;
+
 		// Start the tank moving the barrel so that a shot would hit where
 		// the crosshair intersects with the world
 		void AimTowardsCrosshair();
@@ -45,4 +47,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 		bool GetLookVectorHitLocation(FVector lookDirection, FVector &hitLocation) const;
 
 		bool GetLookDirection(FVector2D screenLocation, FVector &lookDirection) const;
+
+		UFUNCTION()
+		void OnTankDeath();
 };
