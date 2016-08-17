@@ -26,25 +26,25 @@ void UTankAimingComponent::TickComponent(float deltaTime, enum ELevelTick TickTy
 {
 	if (m_RoundsLeft <= 0)
 	{
-		m_FiringState = EFiringState::OUT_OF_AMMO;
+		FiringState = EFiringState::OUT_OF_AMMO;
 	}
 	else if ((GetWorld()->GetTimeSeconds() - m_LastFireTime) < m_ReloadTimeInSeconds)
 	{
-		m_FiringState = EFiringState::RELOADING;
+		FiringState = EFiringState::RELOADING;
 	}
 	else if (IsBarrelMoving())
 	{
-		m_FiringState = EFiringState::AIMING;
+		FiringState = EFiringState::AIMING;
 	}
 	else
 	{
-		m_FiringState = EFiringState::LOCKED;
+		FiringState = EFiringState::LOCKED;
 	}
 }
 
 EFiringState UTankAimingComponent::GetFiringState() const
 {
-	return m_FiringState;
+	return FiringState;
 }
 
 int32 UTankAimingComponent::GetRoundsLeft() const
@@ -89,8 +89,8 @@ void UTankAimingComponent::Fire()
 	if (!ensure(m_Barrel && m_ProjectileBlueprint)) return;
 
 	// Return out if we're reloading or if we're out of ammo
-	if (m_FiringState == EFiringState::RELOADING ||
-		m_FiringState == EFiringState::OUT_OF_AMMO) return;
+	if (FiringState == EFiringState::RELOADING ||
+		FiringState == EFiringState::OUT_OF_AMMO) return;
 
 	// Spawn a projectile at the socket location on the barrel
 	AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(

@@ -16,3 +16,21 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 }
 
+float ATank::TakeDamage(float damageAmount, struct FDamageEvent const &DamageEvent, class AController *eventInstigator, AActor *damageCauser)
+{
+	// Convert the float into an int because we only want to compare integers here
+	int32 damagePoints = FPlatformMath::RoundToInt(damageAmount);
+
+	// Clamp it to the actor's current health so we always end up at 0 health precisely
+	int32 damageToApply = FMath::Clamp(damagePoints, 0, m_CurrentHealth);
+	
+	m_CurrentHealth -= damageToApply;
+
+	if (m_CurrentHealth <= 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Tank died!"))
+	}
+
+	return damageToApply;
+}
+

@@ -37,6 +37,9 @@ class BATTLETANK_API AProjectile : public AActor
 		UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		float m_DestroyDelay = 6.0f;
 
+		UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		float m_ProjectileDamage = 20.0f;
+
 		UFUNCTION()
 		void OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, UPrimitiveComponent* otherComp, FVector normalImpulse, const FHitResult& hit);
 
