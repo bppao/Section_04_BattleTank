@@ -49,5 +49,18 @@ void AProjectile::OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, U
 	m_LaunchBlast->Deactivate();
 	m_ImpactBlast->Activate();
 	m_ExplosionForce->FireImpulse();
+
+	// Destroy the collision mesh component once it has hit something
+	SetRootComponent(m_ImpactBlast);
+	m_CollisionMesh->DestroyComponent();
+
+	// Setup a timer to destroy the projectile altogether once the timer has expired
+	FTimerHandle destroyTimer;
+	GetWorld()->GetTimerManager().SetTimer(destroyTimer, this, &AProjectile::OnDestroyTimerExpire, m_DestroyDelay, false);
+}
+
+void AProjectile::OnDestroyTimerExpire()
+{
+	Destroy();
 }
 

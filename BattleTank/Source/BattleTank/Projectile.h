@@ -34,6 +34,11 @@ class BATTLETANK_API AProjectile : public AActor
 		UPROPERTY(VisibleAnywhere, Category = "Components")
 		URadialForceComponent* m_ExplosionForce = nullptr;
 
+		UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		float m_DestroyDelay = 6.0f;
+
 		UFUNCTION()
 		void OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, UPrimitiveComponent* otherComp, FVector normalImpulse, const FHitResult& hit);
+
+		void OnDestroyTimerExpire();
 };
