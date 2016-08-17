@@ -41,7 +41,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		EFiringState GetFiringState() const;
 
 		UFUNCTION(BlueprintCallable, Category = "Firing")
-		int GetRoundsLeft() const;
+		int32 GetRoundsLeft() const;
 
 	protected:
 		UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -57,15 +57,16 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float m_ReloadTimeInSeconds = 3.0f;
 
+		// Ammo to start with
+		UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		int32 m_RoundsLeft = 3;
+
 		UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> m_ProjectileBlueprint;
 
 		float m_LastFireTime = 0.0f;
 
 		FVector m_AimDirection;
-
-		// Ammo to start with
-		int m_RoundsLeft = 3;
 
 		virtual void TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction) override;
 
