@@ -31,6 +31,9 @@ class BATTLETANK_API AProjectile : public AActor
 		UPROPERTY(VisibleAnywhere, Category = "Components")
 		UParticleSystemComponent* m_ImpactBlast = nullptr;
 
+		UPROPERTY(VisibleAnywhere, Category = "Components")
+		URadialForceComponent* m_ExplosionForce = nullptr;
+
 		UFUNCTION()
 		void OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, UPrimitiveComponent* otherComp, FVector normalImpulse, const FHitResult& hit);
 };
