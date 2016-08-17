@@ -19,7 +19,7 @@ void ATankAIController::Tick(float deltaSeconds)
 	if (!ensure(playerTank && AIControlledTank)) return;
 
 	// Move towards the player
-	MoveToActor(playerTank, m_AcceptanceRadius); // TODO Check radius is in cm
+	MoveToActor(playerTank, AcceptanceRadius);
 
 	// Aim towards the player
 	UTankAimingComponent* AIAimingComponent = AIControlledTank->FindComponentByClass<UTankAimingComponent>();
@@ -29,6 +29,6 @@ void ATankAIController::Tick(float deltaSeconds)
 	// Only allow the AI tanks to fire if they're locked on the player
 	if (AIAimingComponent->GetFiringState() == EFiringState::LOCKED)
 	{
-		AIAimingComponent->Fire(); // TODO Limit firing rate
+		AIAimingComponent->Fire();
 	}
 }

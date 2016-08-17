@@ -45,7 +45,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 
 	protected:
 		UPROPERTY(BlueprintReadOnly, Category = "State")
-		EFiringState m_FiringState = EFiringState::RELOADING;
+		EFiringState FiringState = EFiringState::RELOADING;
 
 	private:
 		UTankBarrel* m_Barrel = nullptr;

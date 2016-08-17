@@ -54,6 +54,15 @@ void AProjectile::OnHit(UPrimitiveComponent* hitComponent, AActor* otherActor, U
 	SetRootComponent(m_ImpactBlast);
 	m_CollisionMesh->DestroyComponent();
 
+	UGameplayStatics::ApplyRadialDamage(
+		this,
+		m_ProjectileDamage,
+		GetActorLocation(),
+		m_ExplosionForce->Radius,
+		UDamageType::StaticClass(),
+		TArray<AActor*>() // Damage all actors
+		);
+
 	// Setup a timer to destroy the projectile altogether once the timer has expired
 	FTimerHandle destroyTimer;
 	GetWorld()->GetTimerManager().SetTimer(destroyTimer, this, &AProjectile::OnDestroyTimerExpire, m_DestroyDelay, false);
