@@ -33,5 +33,5 @@ class BATTLETANK_API ATank : public APawn
 		int32 m_StartingHealth = 100;
 
 		UPROPERTY(VisibleAnywhere, Category = "Setup")
-		int32 m_CurrentHealth = m_StartingHealth;
+		int32 m_CurrentHealth;
 };

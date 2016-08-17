@@ -99,6 +99,7 @@ bool ATankPlayerController::GetLookDirection(FVector2D screenLocation, FVector &
 
 void ATankPlayerController::OnTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Player tank died!"))
+	// Enter a spectator mode when the player tank dies
+	StartSpectatingOnly();
 }
 

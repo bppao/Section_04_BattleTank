@@ -14,6 +14,8 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
+
+	m_CurrentHealth = m_StartingHealth;
 }
 
 float ATank::GetHealthPercent() const
