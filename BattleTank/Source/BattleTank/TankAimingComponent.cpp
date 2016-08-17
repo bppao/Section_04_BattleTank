@@ -24,7 +24,7 @@ void UTankAimingComponent::Initialize(UTankBarrel* barrelToSet, UTankTurret* tur
 
 void UTankAimingComponent::TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction *thisTickFunction)
 {
-	if (m_RoundsLeft <= 0)
+	if (m_RoundsLeft <= 0 || GetWorld()->GetFirstPlayerController()->PlayerState->bIsSpectator)
 	{
 		FiringState = EFiringState::OUT_OF_AMMO;
 	}
