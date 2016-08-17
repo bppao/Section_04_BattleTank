@@ -16,6 +16,11 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 }
 
+float ATank::GetHealthPercent() const
+{
+	return (float)m_CurrentHealth / (float)m_StartingHealth;
+}
+
 float ATank::TakeDamage(float damageAmount, struct FDamageEvent const &DamageEvent, class AController *eventInstigator, AActor *damageCauser)
 {
 	// Convert the float into an int because we only want to compare integers here
