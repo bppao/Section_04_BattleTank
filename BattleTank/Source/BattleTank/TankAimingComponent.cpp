@@ -104,6 +104,7 @@ void UTankAimingComponent::Fire()
 	m_RoundsLeft--;
 
 	// Play the fire sound (at 50% volume because it is LOUD)
+	if (!m_FireSound) return;
 	UGameplayStatics::PlaySoundAtLocation(GetOwner(), m_FireSound, GetOwner()->GetActorLocation(), 0.5f);
 }
 
