@@ -102,6 +102,9 @@ void UTankAimingComponent::Fire()
 	m_LastFireTime = GetWorld()->GetTimeSeconds();
 
 	m_RoundsLeft--;
+
+	// Play the fire sound (at 50% volume because it is LOUD)
+	UGameplayStatics::PlaySoundAtLocation(GetOwner(), m_FireSound, GetOwner()->GetActorLocation(), 0.5f);
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)

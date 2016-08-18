@@ -61,6 +61,10 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		int32 m_RoundsLeft = 3;
 
+		// Sound that plays when the player or AI tank fires
+		UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		USoundBase* m_FireSound = nullptr;
+
 		UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> m_ProjectileBlueprint;
 
