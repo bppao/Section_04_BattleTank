@@ -41,3 +41,11 @@ float ATank::TakeDamage(float damageAmount, struct FDamageEvent const &DamageEve
 	return damageToApply;
 }
 
+void ATank::ActivateOnDeathBlast()
+{
+	UParticleSystemComponent* onDeathBlast = FindComponentByClass<UParticleSystemComponent>();
+	if (!onDeathBlast) return;
+
+	onDeathBlast->Activate();
+}
+

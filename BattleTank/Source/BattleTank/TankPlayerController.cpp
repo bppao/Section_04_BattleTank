@@ -99,6 +99,14 @@ bool ATankPlayerController::GetLookDirection(FVector2D screenLocation, FVector &
 
 void ATankPlayerController::OnTankDeath()
 {
+	if (!GetPawn()) return;
+
+	ATank* possessedTank = Cast<ATank>(GetPawn());
+	if (!possessedTank) return;
+
+	// Activate the on-death particle effect
+	possessedTank->ActivateOnDeathBlast();
+
 	// Enter a spectator mode when the player tank dies
 	StartSpectatingOnly();
 }

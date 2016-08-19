@@ -20,6 +20,8 @@ class BATTLETANK_API ATank : public APawn
 		// Called by the engine when actor damage is dealt
 		virtual float TakeDamage(float damageAmount, struct FDamageEvent const &DamageEvent, class AController *eventInstigator, AActor *damageCauser) override;
 
+		void ActivateOnDeathBlast();
+
 		FTankDeathDelegate OnDeath;
 
 	private:

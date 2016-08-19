@@ -52,6 +52,12 @@ void ATankAIController::OnTankDeath()
 {
 	if (!GetPawn()) return;
 
+	ATank* possessedTank = Cast<ATank>(GetPawn());
+	if (!possessedTank) return;
+
+	// Activate the on-death particle effect
+	possessedTank->ActivateOnDeathBlast();
+
 	// Stop the AI tank from firing at the player if the AI tank is dead
-	GetPawn()->DetachFromControllerPendingDestroy();
+	possessedTank->DetachFromControllerPendingDestroy();
 }
