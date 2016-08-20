@@ -10,9 +10,13 @@ void ATankPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	UTankAimingComponent* aimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
-	if (!ensure(aimingComponent)) return;
+	if (!aimingComponent) return;
 
 	FoundAimingComponent(aimingComponent);
+
+	if (!GetPawn()) return;
+	ATank* possessedTank = Cast<ATank>(GetPawn());
+	FoundTankReference(possessedTank);
 }
 
 void ATankPlayerController::Tick(float deltaSeconds)
